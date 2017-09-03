@@ -1,19 +1,29 @@
+BEGIN;
+
+
 -- Source: https://www.dot.ny.gov/regional-offices
+
+
+DROP DOMAIN IF EXISTS nysdot_region CASCADE;
+
 CREATE DOMAIN nysdot_region AS SMALLINT
 CHECK (VALUE BETWEEN 1 AND 11);
 
 COMMENT ON DOMAIN nysdot_region IS
 'The NYSDOT Region numbers.';
 
-DROP TABLE IF EXISTS nysdot_region_names;
-CREATE TABLE IF NOT EXISTS nysdot_region_names (
+
+
+DROP TABLE IF EXISTS nysdot_region_names CASCADE;
+
+CREATE TABLE nysdot_region_names (
   region  nysdot_region PRIMARY KEY,
-  name    VARCHAR(64)
+  name    VARCHAR(64) UNIQUE
 ) WITH (fillfactor = 100);
 
 
 INSERT INTO nysdot_region_names (region, name)
-VALUES 
+VALUES
   (1,  'Capital District'),
   (2,  'Mohawk Valley'),
   (3,  'Central New York'),
@@ -34,3 +44,7 @@ COMMENT ON COLUMN nysdot_region_names.region IS
 
 COMMENT ON COLUMN nysdot_region_names.name IS
 'Name of the NYSDOT Region.';
+
+
+COMMIT;
+

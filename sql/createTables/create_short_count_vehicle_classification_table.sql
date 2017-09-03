@@ -10,39 +10,39 @@ CREATE TABLE short_count_vehicle_classification (
     "county_code"                    SMALLINT,
     "stat"                           VARCHAR(4),
     "rcsta"                          VARCHAR(6),
-    "functional_class"               functional_classification_code REFERENCES functional_classification_code_descriptions(code),
-    "factor_group"                   seasonal_adjustment_factor_group REFERENCES seasonal_adjustment_factor_group_descriptions(factor_group),
+    "functional_class"               nysdot_functional_classification_code REFERENCES nysdot_functional_classification_code_descriptions(code),
+    "factor_group"                   nysdot_seasonal_adjustment_factor_group REFERENCES nysdot_seasonal_adjustment_factor_group_descriptions(factor_group),
     "latitude"                       DOUBLE PRECISION,
     "longitude"                      DOUBLE PRECISION,
     "specific_recorder_placement"    VARCHAR,
     "channel_notes"                  VARCHAR,
     "data_type"                      VARCHAR,
-    "blank"                          CHAR(1), 
+    "blank"                          CHAR(1),
     "year"                           calendar_year,
     "month"                          calendar_month REFERENCES calendar_month_names(calendar_month),
     "day"                            day_of_month REFERENCES day_of_month_ordinals(day_of_month),
     "day_of_week"                    day_of_week REFERENCES day_of_week_names(day_of_week),
     "federal_direction"              fhwa_direction_of_travel_code REFERENCES fhwa_direction_of_travel_code_descriptions(code),
-	  "lane_code"                      SMALLINT, 
-	  "lanes_in_direction"             SMALLINT, 
+	  "lane_code"                      SMALLINT,
+	  "lanes_in_direction"             SMALLINT,
 	  "collection_interval"            SMALLINT,
 	  "data_interval"                  nysdot_data_interval REFERENCES nysdot_data_interval_descriptions(data_interval),
-	  "class_f1"                       INTEGER, 
-	  "class_f2"                       INTEGER, 
-	  "class_f3"                       INTEGER, 
-	  "class_f4"                       INTEGER, 
-	  "class_f5"                       INTEGER, 
-	  "class_f6"                       INTEGER, 
-	  "class_f7"                       INTEGER, 
-	  "class_f8"                       INTEGER, 
-	  "class_f9"                       INTEGER, 
-	  "class_f10"                      INTEGER, 
-	  "class_f11"                      INTEGER, 
-	  "class_f12"                      INTEGER, 
-	  "class_f13"                      INTEGER, 
-	  "unclassified"                   INTEGER, 
+	  "class_f1"                       INTEGER,
+	  "class_f2"                       INTEGER,
+	  "class_f3"                       INTEGER,
+	  "class_f4"                       INTEGER,
+	  "class_f5"                       INTEGER,
+	  "class_f6"                       INTEGER,
+	  "class_f7"                       INTEGER,
+	  "class_f8"                       INTEGER,
+	  "class_f9"                       INTEGER,
+	  "class_f10"                      INTEGER,
+	  "class_f11"                      INTEGER,
+	  "class_f12"                      INTEGER,
+	  "class_f13"                      INTEGER,
+	  "unclassified"                   INTEGER,
 	  "total"                          INTEGER,
-    "flag_field"                     VARCHAR, 
+    "flag_field"                     VARCHAR,
     "batch_id"                       VARCHAR
 );
 
@@ -53,7 +53,7 @@ COMMENT ON TABLE short_count_vehicle_classification IS
 'Fifteen Minute short count speed data by direction for a given Region and Year.';
 
 COMMENT ON COLUMN short_count_vehicle_classification.rc_station IS
-'Region‐County‐Station number, a seven character code uniquely identifying a traffic segment in NYS. Can be used to join data to shapefiles published by NYSDOT.'; 
+'Region‐County‐Station number, a seven character code uniquely identifying a traffic segment in NYS. Can be used to join data to shapefiles published by NYSDOT.';
 
 COMMENT ON COLUMN short_count_vehicle_classification.count_id IS
 'A unique ID for each count session loaded, each count has one Count_ID for all data types.';

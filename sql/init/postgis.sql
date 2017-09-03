@@ -1,9 +1,11 @@
 BEGIN;
 
 -- http://www.postgresonline.com/journal/archives/248-Moving-PostGIS-to-another-schema-with-Extensions.html
-CREATE SCHEMA IF NOT EXISTS postgis;
+DROP SCHEMA IF EXISTS postgis CASCADE;
 
-ALTER DATABASE nys_dot_traffic_data
+CREATE SCHEMA postgis;
+
+ALTER DATABASE __PGDATABASE__
   SET search_path="$user", public, postgis,topology;
 
 GRANT ALL ON SCHEMA postgis TO public;

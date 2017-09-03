@@ -1,19 +1,28 @@
+BEGIN;
+
+
 -- https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/hdsb/repository/Field_Definitions_SC%20Formats.pdf
-CREATE DOMAIN nysdot_data_interval AS SMALLINT
-CHECK ((FLOOR(VALUE) BETWEEN 1 AND 24) AND (MOD(VALUE * 10, 10) IN (1, 2, 3, 4)));
+
+
+DROP DOMAIN IF EXISTS nysdot_data_interval CASCADE;
+
+CREATE DOMAIN nysdot_data_interval AS REAL
+CHECK ((FLOOR(VALUE) BETWEEN 1 AND 24) AND (MOD((VALUE * 10)::INTEGER, 10) IN (1, 2, 3, 4)));
 
 COMMENT ON DOMAIN nysdot_data_interval IS
 'The interval which the record applies. 1.1 indicates the first 15 minutes of the first hour of the day, or 00:00 through 00:15. 1.2 represents 00:15‐00:30, 12.3 represents 11:30‐11:45, 23.4 represents 22:45‐23:00 and so on.';
 
-DROP TABLE IF EXISTS nysdot_data_interval_descriptions;
-CREATE TABLE IF NOT EXISTS nysdot_data_interval_descriptions (
+
+
+DROP TABLE IF EXISTS nysdot_data_interval_descriptions CASCADE;
+
+CREATE TABLE nysdot_data_interval_descriptions (
   data_interval                nysdot_data_interval PRIMARY KEY,
   data_interval_description    VARCHAR(64) UNIQUE
 ) WITH (fillfactor = 100);
 
-
-INSERT INTO nysdot_data_interval_descriptions (data_inteval, data_interval_description)
-VALUES 
+INSERT INTO nysdot_data_interval_descriptions (data_interval, data_interval_description)
+VALUES
   (1.1,  '00:00 through 00:15'),
   (1.2,  '00:15 through 00:30'),
   (1.3,  '00:30 through 00:45'),
@@ -94,7 +103,7 @@ VALUES
   (20.2, '19:15 through 19:30'),
   (20.3, '19:30 through 19:45'),
   (20.4, '19:45 through 20:00'),
-  (21.1, '10:00 through 10:15'),
+  (21.1, '20:00 through 20:15'),
   (21.2, '20:15 through 20:30'),
   (21.3, '20:30 through 20:45'),
   (21.4, '20:45 through 21:00'),
@@ -112,10 +121,14 @@ VALUES
   (24.4, '23:45 through 24:00')
 ;
 
-COMMENT ON TABLE nysdot_data_interval_descriptions IS 'NYSDOT data_inteval code descriptions.';
+COMMENT ON TABLE nysdot_data_interval_descriptions IS 'NYSDOT data_interval code descriptions.';
 
-COMMENT ON COLUMN nysdot_data_interval_descriptions.data_inteval IS
+COMMENT ON COLUMN nysdot_data_interval_descriptions.data_interval IS
 'NYSDOT data_interval code.';
 
 COMMENT ON COLUMN nysdot_data_interval_descriptions.data_interval_description IS
-'NYSDOT data_inteval code description.';
+'NYSDOT data_interval code description.';
+
+
+COMMIT;
+

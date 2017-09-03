@@ -1,14 +1,38 @@
+BEGIN;
+
+
 -- https://www.fhwa.dot.gov/policyinformation/tmguide/tmg_2013/traffic-monitoring-formats.cfm
+
+
+DROP DOMAIN IF EXISTS calendar_year CASCADE;
+
 CREATE DOMAIN calendar_year AS SMALLINT;
+
+
+
+DROP DOMAIN IF EXISTS calendar_month CASCADE;
 
 CREATE DOMAIN calendar_month AS SMALLINT
 CHECK (VALUE BETWEEN 1 AND 12);
 
+
+
+
+DROP DOMAIN IF EXISTS day_of_month CASCADE;
+
 CREATE DOMAIN day_of_month AS SMALLINT
 CHECK (VALUE BETWEEN 1 AND 31);
 
+
+
+DROP DOMAIN IF EXISTS day_of_week_code CASCADE;
+
 CREATE DOMAIN day_of_week_code AS SMALLINT
 CHECK (VALUE BETWEEN 1 AND 7);
+
+
+
+DROP TYPE IF EXISTS day_of_week CASCADE;
 
 CREATE TYPE day_of_week AS ENUM (
   'Sunday',
@@ -20,12 +44,19 @@ CREATE TYPE day_of_week AS ENUM (
   'Saturday'
 );
 
+
+
+DROP DOMAIN IF EXISTS hour_of_day CASCADE;
+
 CREATE DOMAIN hour_of_day AS SMALLINT 
 CHECK (VALUE BETWEEN 0 AND 23);
 
+
+DROP TABLE IF EXISTS calendar_month_names CASCADE;
+
 CREATE TABLE calendar_month_names (
   calendar_month      calendar_month  PRIMARY KEY,
-  calendar_month_name VARCHAR(9)
+  calendar_month_name VARCHAR(9) UNIQUE
 ) WITH (fillfactor = 100);
 
 INSERT INTO calendar_month_names (calendar_month, calendar_month_name)
@@ -44,12 +75,16 @@ VALUES
   (12, 'December')
 ;
 
+
+
+DROP TABLE IF EXISTS days_of_week CASCADE;
+
 CREATE TABLE days_of_week (
   dow          day_of_week_code  PRIMARY KEY,
-  day_of_week  day_of_week       UNIQUE
+  day_of_week  day_of_week  UNIQUE
 ) WITH (fillfactor = 100);
 
-INSERT INTO days_of_week (day_of_week_code, day_of_week)
+INSERT INTO days_of_week (dow, day_of_week)
 VALUES
   (1, 'Sunday'),
   (2, 'Monday'),
@@ -60,9 +95,13 @@ VALUES
   (7, 'Saturday')
 ;
 
+
+
+DROP TABLE IF EXISTS day_of_month_ordinals CASCADE;
+
 CREATE TABLE day_of_month_ordinals (
   day_of_month         day_of_month  PRIMARY KEY,
-  day_of_month_ordinal VARCHAR(4)
+  day_of_month_ordinal VARCHAR(4) UNIQUE
 ) WITH (fillfactor = 100);
 
 INSERT INTO day_of_month_ordinals (day_of_month, day_of_month_ordinal)
@@ -100,7 +139,17 @@ VALUES
   (31, '31st')
 ;
 
-INSERT INTO hour_of_day_ranges
+
+
+DROP TABLE IF EXISTS hour_of_day_ranges CASCADE;
+
+CREATE TABLE hour_of_day_ranges (
+  hour_of_day  hour_of_day  PRIMARY KEY,
+  time_of_day_range   VARCHAR(12) UNIQUE
+) WITH (fillfactor = 100);
+
+
+INSERT INTO hour_of_day_ranges (hour_of_day, time_of_day_range)
 VALUES
   (0,  '12am to 1am'),
   (1,   '1am to 2am'),
@@ -128,3 +177,6 @@ VALUES
   (23, '11pm to 12am')
 ;
   
+
+COMMIT;
+

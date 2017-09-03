@@ -1,35 +1,44 @@
+BEGIN;
+
+
+-- https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/ltpp/13091/002.cfm
+
+
+DROP TYPE IF EXISTS fhwa_f_scheme_class CASCADE;
+
 CREATE TYPE fhwa_f_scheme_class AS ENUM (
-  'F1', 
-  'F2', 
-  'F3', 
-  'F4', 
-  'F5', 
-  'F6', 
-  'F7', 
-  'F8', 
-  'F9', 
+  'F1',
+  'F2',
+  'F3',
+  'F4',
+  'F5',
+  'F6',
+  'F7',
+  'F8',
+  'F9',
   'F10',
   'F11',
   'F12',
   'F13'
 );
 
-
--- https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/ltpp/13091/002.cfm
 COMMENT ON TYPE fhwa_f_scheme_class IS
 'The FHWA 13-category classification rule set currently used for most Federal reporting requirements and that serves as the basis for most State vehicle classification counting efforts.';
 
 
+
+DROP TABLE IF EXISTS fhwa_f_scheme_class_descriptions CASCADE;
+
 CREATE TABLE fhwa_f_scheme_class_descriptions (
   class                fhwa_f_scheme_class PRIMARY KEY,
-  short_description    VARCHAR,
-  long_description     VARCHAR
+  short_description    VARCHAR UNIQUE,
+  long_description     VARCHAR UNIQUE
 ) WITH (fillfactor = 100);
 
 
 -- https://www.fhwa.dot.gov/ohim/tvtw/hvtis.htm
-INSERT INTO fhwa_f_scheme_class_descriptions (class, description)
-VALUES 
+INSERT INTO fhwa_f_scheme_class_descriptions (class, short_description, long_description)
+VALUES
   ('F1', 'Motorcycles', 'Motorcycles -- All two or three-wheeled motorized vehicles. Typical vehicles in this category have saddle type seats and are steered by handlebars rather than steering wheels. This category includes motorcycles, motor scooters, mopeds, motor-powered bicycles, and three-wheel motorcycles. This vehicle type may be reported at the option of the State.'),
   ('F2', 'Autos', 'Passenger Cars -- All sedans, coupes, and station wagons manufactured primarily for the purpose of carrying passengers and including those passenger cars pulling recreational or other light trailers.'),
   ('F3', '2 axle, 4‐tire pickups, vans, motor‐homes', 'Other Two-Axle, Four-Tire Single Unit Vehicles -- All two-axle, four-tire, vehicles, other than passenger cars. Included in this classification are pickups, panels, vans, and other vehicles such as campers, motor homes, ambulances, hearses, carryalls, and minibuses. Other two-axle, four-tire single-unit vehicles pulling recreational or other light trailers are included in this classification. Because automatic vehicle classifiers have difficulty distinguishing class 3 from class 2, these two classes may be combined into class 2.'),
@@ -47,4 +56,7 @@ VALUES
 
 COMMENT ON TABLE fhwa_f_scheme_class_descriptions IS
 'The classification scheme is separated into categories depending on whether the vehicle carries passengers or commodities. Non-passenger vehicles are further subdivided by number of axles and number of units, including both power and trailer units.';
+
+
+COMMIT;
 

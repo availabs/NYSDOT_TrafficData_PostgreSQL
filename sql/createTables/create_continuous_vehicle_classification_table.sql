@@ -1,5 +1,6 @@
 BEGIN;
 
+-- TODO: Decide what to do with invalid column names.
 
 DROP TABLE IF EXISTS continuous_vehicle_classification CASCADE;
 
@@ -9,7 +10,7 @@ CREATE TABLE continuous_vehicle_classification (
     "region"        nysdot_region REFERENCES nysdot_region_names(region),
     "dotid"         VARCHAR,
     "ccid"          VARCHAR(4),
-    "fc"            functional_classification_code REFERENCES functional_classification_code_descriptions(code),
+    "fc"            nysdot_functional_classification_code REFERENCES nysdot_functional_classification_code_descriptions(code),
     "route"         VARCHAR,
     "roadname"      VARCHAR,
     "county"        VARCHAR,

@@ -1,23 +1,35 @@
--- https://www.dot.ny.gov/gisapps/functional-class-maps
+BEGIN;
 
-CREATE TYPE functional_classification_code AS ENUM (
+
+-- https://www.dot.ny.gov/gisapps/nysdot_functional-class-maps
+
+
+DROP TYPE IF EXISTS nysdot_functional_classification_code CASCADE;
+
+CREATE TYPE nysdot_functional_classification_code AS ENUM (
   '1', '2', '3', '4', '5', '6', '7',         -- FHWA Codes
   '01', '02', '04', '06', '07', '08', '09',  -- NYS Codes Rural
   '11', '12', '14', '16', '17', '18', '19'   -- NYS Codes Urban
 );
 
-CREATE TYPE functional_classification_distinctor AS ENUM (
+
+DROP TYPE IF EXISTS nysdot_functional_classification_distinctor CASCADE;
+
+CREATE TYPE nysdot_functional_classification_distinctor AS ENUM (
   'NYS Codes Urban', 'NYS Codes Rural', 'FHWA Codes'
 );
 
-CREATE TABLE functional_classification_code_descriptions (
-  code         functional_classification_code,
-  distinctor   functional_classification_distinctor,
+
+DROP TABLE IF EXISTS nysdot_functional_classification_code_descriptions CASCADE;
+
+CREATE TABLE nysdot_functional_classification_code_descriptions (
+  code         nysdot_functional_classification_code PRIMARY KEY,
+  distinctor   nysdot_functional_classification_distinctor,
   description  VARCHAR(64)
 ) WITH (fillfactor = 100);
 
 
-INSERT INTO functional_classification_code_descriptions (code, distinctor, description)
+INSERT INTO nysdot_functional_classification_code_descriptions (code, distinctor, description)
 VALUES 
   ('1', 'FHWA Codes', 'Principal Arterial - Interstate'),
   ('2', 'FHWA Codes', 'Principal Arterial - Other Freeway/Expressway'),
@@ -43,3 +55,7 @@ VALUES
   ('18', 'NYS Codes Urban', 'Minor Collector'),
   ('19', 'NYS Codes Urban', 'Local')
 ;
+
+
+COMMIT;
+
