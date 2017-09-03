@@ -1,0 +1,44 @@
+RC_STATION                     |  11_0025
+COUNT_ID                       |  110025_06162015
+RG                             |  01
+REGION_CODE                    |  1
+COUNTY_CODE                    |  1
+STAT                           |  0025
+RCSTA                          |  110025
+FUNCTIONAL_CLASS               |  14
+FACTOR_GROUP                   |  30
+LATITUDE                       |  
+LONGITUDE                      |  
+SPECIFIC_RECORDER_PLACEMENT    |  328YdsEofRifleRangeRd
+CHANNEL_NOTES                  |  WBtravellane
+DATA_TYPE                      |  SpeedData
+SPEED_LIMIT                    |  45
+YEAR                           |  2015
+MONTH                          |  6
+DAY                            |  20
+DAY_OF_WEEK                    |  Saturday
+FEDERAL_DIRECTION              |  7
+LANE_CODE                      |  1
+LANES_IN_DIRECTION             |  1
+COLLECTION_INTERVAL            |  15
+DATA_INTERVAL                  |  18.3
+BIN_1                          |  0
+BIN_2                          |  0
+BIN_3                          |  0
+BIN_4                          |  0
+BIN_5                          |  3
+BIN_6                          |  55
+BIN_7                          |  70
+BIN_8                          |  17
+BIN_9                          |  2
+BIN_10                         |  1
+BIN_11                         |  0
+BIN_12                         |  0
+BIN_13                         |  0
+BIN_14                         |  0
+BIN_15                         |  0
+UNCLASSIFIED                   |  
+TOTAL                          |  148
+FLAG_FIELD                     |  
+BATCH_ID                       |  155080
+

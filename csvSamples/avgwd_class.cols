@@ -1,0 +1,51 @@
+RC_STATION                     |  11_0025
+COUNT_ID                       |  110025_06162015
+RG                             |  01
+REGION_CODE                    |  1
+COUNTY_CODE                    |  1
+STAT                           |  0025
+RCSTA                          |  110025
+FUNCTIONAL_CLASS               |  14
+FACTOR_GROUP                   |  30
+LATITUDE                       |  
+LONGITUDE                      |  
+SPECIFIC_RECORDER_PLACEMENT    |  328YdsEofRifleRangeRd
+CHANNEL_NOTES                  |  EBtravellane
+DATA_TYPE                      |  ClassStatistics
+BLANK                          |  
+YEAR                           |  2015
+MONTH                          |  6
+DAY_OF_FIRST_DATA              |  16
+FEDERAL_DIRECTION              |  3
+FULL_COUNT                     |  
+AVG_WKDAY_F1S                  |  83
+AVG_WKDAY_F2S                  |  10517
+AVG_WKDAY_F3S                  |  1358
+AVG_WKDAY_F4S                  |  69
+AVG_WKDAY_F5S                  |  253
+AVG_WKDAY_F6S                  |  32
+AVG_WKDAY_F7S                  |  10
+AVG_WKDAY_F8S                  |  61
+AVG_WKDAY_F9S                  |  38
+AVG_WKDAY_F10S                 |  5
+AVG_WKDAY_F11S                 |  6
+AVG_WKDAY_F12S                 |  0
+AVG_WKDAY_F13S                 |  2
+AVG_WKDAY_UNCLASSIFIED         |  
+AVG_WKDAY_TOTALS               |  12434
+AVG_WKDAY_PERC_F3_13           |  14.74988
+AVG_WKDAY_PERC_F4_13           |  3.82821
+AVG_WKDAY_PERC_F4_7            |  2.92746
+AVG_WKDAY_PERC_F8_13           |  .90076
+AVG_WKDAY_PERC_F1              |  .66752
+AVG_WKDAY_PERC_F2              |  84.5826
+AVG_WKDAY_PERC_F3              |  10.92167
+AVG_WKDAY_PERC_F4              |  .55493
+AVG_WKDAY_PERC_F5_7            |  2.37253
+AXLE_CORRECTION_FACTOR         |  .98636
+SU_PEAK                        |  .17693
+CU_PEAK                        |  .03217
+SU_AADT                        |  
+CU_AADT                        |  
+FLAG_FIELD                     |  
+BATCH_ID                       |  154496

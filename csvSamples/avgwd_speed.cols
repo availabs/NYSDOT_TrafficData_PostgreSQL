@@ -1,0 +1,44 @@
+RC_STATION                     |  11_0025
+COUNT_ID                       |  110025_06162015
+RG                             |  01
+REGION_CODE                    |  1
+COUNTY_CODE                    |  1
+STAT                           |  0025
+RCSTA                          |  110025
+FUNCTIONAL_CLASS               |  14
+FACTOR_GROUP                   |  30
+LATITUDE                       |  
+LONGITUDE                      |  
+SPECIFIC_RECORDER_PLACEMENT    |  328YdsEofRifleRangeRd
+CHANNEL_NOTES                  |  EBtravellane
+DATA_TYPE                      |  SpeedStatistics
+SPEED_LIMIT                    |  45
+YEAR                           |  2015
+MONTH                          |  6
+DAY_OF_FIRST_DATA              |  16
+FEDERAL_DIRECTION              |  3
+FULL_COUNT                     |  
+AVG_WKDAY_BIN_1                |  325
+AVG_WKDAY_BIN_2                |  366
+AVG_WKDAY_BIN_3                |  497
+AVG_WKDAY_BIN_4                |  677
+AVG_WKDAY_BIN_5                |  2060
+AVG_WKDAY_BIN_6                |  4444
+AVG_WKDAY_BIN_7                |  3212
+AVG_WKDAY_BIN_8                |  754
+AVG_WKDAY_BIN_9                |  106
+AVG_WKDAY_BIN_10               |  8
+AVG_WKDAY_BIN_11               |  0
+AVG_WKDAY_BIN_12               |  0
+AVG_WKDAY_BIN_13               |  0
+AVG_WKDAY_BIN_14               |  0
+AVG_WKDAY_BIN_15               |  0
+AVG_WKDAY_UNCLASSIFIED         |  
+AVG_WKDAY_TOTALS               |  12449
+AVG_SPEED                      |  38.54208
+FIFTYTH_PERCENTILE_SPEED       |  42.6
+EIGHTYFIVETH_PERCENTILE_SPEED  |  48.5
+PERCENTILE_EXCEEDING_55        |  .91574
+PERCENTILE_EXCEEDING_65        |  0
+FLAG_FIELD                     |  
+BATCH_ID                       |  155662

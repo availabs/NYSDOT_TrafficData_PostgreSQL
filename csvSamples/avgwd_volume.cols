@@ -1,0 +1,54 @@
+RC_STATION                    |  11_0012
+COUNT_ID                      |  110012_06092015
+RG                            |  01
+REGION_CODE                   |  1
+COUNTY_CODE                   |  1
+STAT                          |  0012
+RCSTA                         |  110012
+FUNCTIONAL_CLASS              |  14
+FACTOR_GROUP                  |  30
+LATITUDE                      |  
+LONGITUDE                     |  
+SPECIFIC_RECORDER_PLACEMENT   |  313YdsEofAirlineDr
+CHANNEL_NOTES                 |  
+DATA_TYPE                     |  VolumeStatistics
+VEHICLE_AXLE_CODE             |  2
+YEAR                          |  2015
+MONTH                         |  6
+DAY_OF_FIRST_DATA             |  9
+FEDERAL_DIRECTION             |  0
+FULL_COUNT                    |  Y
+AVG_WKDAY_INTERVAL_1          |  59
+AVG_WKDAY_INTERVAL_2          |  28
+AVG_WKDAY_INTERVAL_3          |  23
+AVG_WKDAY_INTERVAL_4          |  32
+AVG_WKDAY_INTERVAL_5          |  75
+AVG_WKDAY_INTERVAL_6          |  97
+AVG_WKDAY_INTERVAL_7          |  336
+AVG_WKDAY_INTERVAL_8          |  952
+AVG_WKDAY_INTERVAL_9          |  1023
+AVG_WKDAY_INTERVAL_10         |  637
+AVG_WKDAY_INTERVAL_11         |  583
+AVG_WKDAY_INTERVAL_12         |  686
+AVG_WKDAY_INTERVAL_13         |  793
+AVG_WKDAY_INTERVAL_14         |  803
+AVG_WKDAY_INTERVAL_15         |  784
+AVG_WKDAY_INTERVAL_16         |  948
+AVG_WKDAY_INTERVAL_17         |  1209
+AVG_WKDAY_INTERVAL_18         |  1297
+AVG_WKDAY_INTERVAL_19         |  681
+AVG_WKDAY_INTERVAL_20         |  430
+AVG_WKDAY_INTERVAL_21         |  353
+AVG_WKDAY_INTERVAL_22         |  206
+AVG_WKDAY_INTERVAL_23         |  156
+AVG_WKDAY_INTERVAL_24         |  101
+AVG_WKDAY_DAILY_TRAFFIC       |  12292
+SEASONAL_FACTOR               |  1.1
+AXLE_FACTOR                   |  .971
+AADT                          |  11175
+HIGH_HOUR_VALUE               |  1297
+HIGH_HOUR_INTERVAL            |  18
+K_FACTOR                      |  10.55158
+D_FACTOR                      |  55.05012
+FLAG_FIELD                    |  
+BATCH_ID                      |  161438

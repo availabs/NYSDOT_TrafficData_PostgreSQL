@@ -1,0 +1,42 @@
+RC_STATION                     |  11_0025
+COUNT_ID                       |  110025_06162015
+RG                             |  01
+REGION_CODE                    |  1
+COUNTY_CODE                    |  1
+STAT                           |  0025
+RCSTA                          |  110025
+FUNCTIONAL_CLASS               |  14
+FACTOR_GROUP                   |  30
+LATITUDE                       |  
+LONGITUDE                      |  
+SPECIFIC_RECORDER_PLACEMENT    |  328YdsEofRifleRangeRd
+CHANNEL_NOTES                  |  EBtravellane
+DATA_TYPE                      |  ClassData
+BLANK                          |  
+YEAR                           |  2015
+MONTH                          |  6
+DAY                            |  21
+DAY_OF_WEEK                    |  Sunday
+FEDERAL_DIRECTION              |  3
+LANE_CODE                      |  1
+LANES_IN_DIRECTION             |  1
+COLLECTION_INTERVAL            |  15
+DATA_INTERVAL                  |  21.2
+CLASS_F1                       |  3
+CLASS_F2                       |  74
+CLASS_F3                       |  4
+CLASS_F4                       |  1
+CLASS_F5                       |  0
+CLASS_F6                       |  0
+CLASS_F7                       |  0
+CLASS_F8                       |  0
+CLASS_F9                       |  0
+CLASS_F10                      |  0
+CLASS_F11                      |  0
+CLASS_F12                      |  0
+CLASS_F13                      |  0
+UNCLASSIFIED                   |  
+TOTAL                          |  82
+FLAG_FIELD                     |  
+BATCH_ID                       |  153910
+
