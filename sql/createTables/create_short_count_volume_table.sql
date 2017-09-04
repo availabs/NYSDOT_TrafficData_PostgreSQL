@@ -21,7 +21,7 @@ CREATE TABLE short_count_volume (
     "year"                           calendar_year,
     "month"                          calendar_month REFERENCES calendar_month_names(calendar_month),
     "day"                            day_of_month REFERENCES day_of_month_ordinals(day_of_month),
-    "day_of_week"                    day_of_week REFERENCES day_of_week_names(day_of_week),
+    "day_of_week"                    day_of_week REFERENCES days_of_week(day_of_week),
     "federal_direction"              fhwa_direction_of_travel_code REFERENCES fhwa_direction_of_travel_code_descriptions(code),
 	  "lane_code"                      SMALLINT,
 	  "lanes_in_direction"             SMALLINT,
@@ -201,9 +201,6 @@ COMMENT ON COLUMN short_count_volume.lanes_in_direction IS
 
 COMMENT ON COLUMN short_count_volume.collection_interval IS
 'The interval, in minutes, in which the data was collected, typically 15 or 60.';
-
-COMMENT ON COLUMN short_count_volume.data_interval IS
-'Speed and Classification data only. The interval which the record applies. 1.1 indicates the first 15 minutes of the first hour of the day, or 00:00 through 00:15. 1.2 represents 00:15‐00:30, 12.3 represents 11:30‐11:45, 23.4 represents 22:45‐23:00 and so on.';
 
 COMMENT ON COLUMN short_count_volume.interval_1_1 IS
 'Volume Data for the 15 minute interval 00:00 through 00:15';

@@ -6,9 +6,9 @@ DROP TABLE IF EXISTS average_weekday_volume;
 CREATE TABLE average_weekday_volume (
     "rc_station"                     VARCHAR(7),
     "count_id"                       VARCHAR,
-    "rg"                             SMALLINT,
-    "region_code"                    SMALLINT,
-    "county_code"                    SMALLINT,
+    "rg"                             VARCHAR(2),
+    "region_code"                    VARCHAR,
+    "county_code"                    VARCHAR,
     "stat"                           VARCHAR(4),
     "rcsta"                          VARCHAR(6),
     "functional_class"               nysdot_functional_classification_code REFERENCES nysdot_functional_classification_code_descriptions(code),

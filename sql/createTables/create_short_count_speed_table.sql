@@ -21,7 +21,7 @@ CREATE TABLE short_count_speed (
     "year"                           calendar_year,
     "month"                          calendar_month REFERENCES calendar_month_names(calendar_month),
     "day"                            day_of_month REFERENCES day_of_month_ordinals(day_of_month),
-    "day_of_week"                    day_of_week REFERENCES day_of_week_names(day_of_week),
+    "day_of_week"                    day_of_week REFERENCES days_of_week(day_of_week),
     "federal_direction"              fhwa_direction_of_travel_code REFERENCES fhwa_direction_of_travel_code_descriptions(code),
 	  "lane_code"                      SMALLINT, 
 	  "lanes_in_direction"             SMALLINT, 
