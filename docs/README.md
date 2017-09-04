@@ -27,3 +27,7 @@
 * [FHWA Traffic Monitoring Guide PDF](https://www.fhwa.dot.gov/policyinformation/tmguide/tmg_fhwa_pl_13_015.pdf)
 
 * [NYSDOT SEASONAL ADJUSTMENT FACTORS FOR TRAFFIC COUNT PROCESSING 2016](https://www.dot.ny.gov/divisions/engineering/technical-services/hds-respository/Tab/NYSDOT_2016_Seasonal_Adjustment_Factors.pdf)
+
+* [2007 TRAFFIC DATA REPORT FOR NEW YORK STATE](https://www.dot.ny.gov/divisions/engineering/technical-services/hds-respository/Traffic%20Data%20Report%202007.pdf)
+
+

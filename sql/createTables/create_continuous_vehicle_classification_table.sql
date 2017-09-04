@@ -5,39 +5,39 @@ BEGIN;
 DROP TABLE IF EXISTS continuous_vehicle_classification CASCADE;
 
 CREATE TABLE continuous_vehicle_classification (
-    "rc"            VARCHAR(2),
-    "station"       VARCHAR(4),
-    "region"        nysdot_region REFERENCES nysdot_region_names(region),
-    "dotid"         VARCHAR,
-    "ccid"          VARCHAR(4),
-    "fc"            nysdot_functional_classification_code REFERENCES nysdot_functional_classification_code_descriptions(code),
-    "route"         VARCHAR,
-    "roadname"      VARCHAR,
-    "county"        VARCHAR,
-    "county fips"   VARCHAR(2),
-    "begin desc"    VARCHAR,
-    "end desc"      VARCHAR,
-    "station id"    VARCHAR(6),
-    "road"          nysdot_road_direction_code REFERENCES nysdot_road_direction_code_descriptions(code),
-    "one-way"       nysdot_one_way_road_flag REFERENCES nysdot_one_way_road_flag_descriptions(flag_value),
-    "year"          calendar_year,
-    "month"         calendar_month REFERENCES calendar_month_names(calendar_month),
-    "day"           day_of_month REFERENCES day_of_month_ordinals(day_of_month),
-    "dow"           day_of_week_code REFERENCES days_of_week(dow),
-    "hour"          hour_of_day REFERENCES hour_of_day_ranges(hour_of_day),
-    "f1"            INTEGER,
-    "f2"            INTEGER,
-    "f3"            INTEGER,
-    "f4"            INTEGER,
-    "f5"            INTEGER,
-    "f6"            INTEGER,
-    "f7"            INTEGER,
-    "f8"            INTEGER,
-    "f9"            INTEGER,
-    "f10"           INTEGER,
-    "f11"           INTEGER,
-    "f12"           INTEGER,
-    "f13"           INTEGER
+    rc            VARCHAR(2),
+    station       VARCHAR(4),
+    region        nysdot_region REFERENCES nysdot_region_names(region),
+    dotid         VARCHAR,
+    ccid          VARCHAR(4),
+    fc            nysdot_functional_classification_code REFERENCES nysdot_functional_classification_code_descriptions(code),
+    route         VARCHAR,
+    roadname      VARCHAR,
+    county        VARCHAR,
+    county_fips   VARCHAR(3),
+    begin_desc    VARCHAR,
+    end_desc      VARCHAR,
+    station_id    VARCHAR(6),
+    road          nysdot_road_direction_code REFERENCES nysdot_road_direction_code_descriptions(code),
+    one_way       nysdot_one_way_road_flag REFERENCES nysdot_one_way_road_flag_descriptions(flag_value),
+    year          calendar_year,
+    month         calendar_month REFERENCES calendar_month_names(calendar_month),
+    day           day_of_month REFERENCES day_of_month_ordinals(day_of_month),
+    dow           day_of_week_code REFERENCES days_of_week(dow),
+    hour          hour_of_day REFERENCES hour_of_day_ranges(hour_of_day),
+    f1            INTEGER,
+    f2            INTEGER,
+    f3            INTEGER,
+    f4            INTEGER,
+    f5            INTEGER,
+    f6            INTEGER,
+    f7            INTEGER,
+    f8            INTEGER,
+    f9            INTEGER,
+    f10           INTEGER,
+    f11           INTEGER,
+    f12           INTEGER,
+    f13           INTEGER
 );
 
 
@@ -74,22 +74,22 @@ COMMENT ON COLUMN continuous_vehicle_classification.roadname IS
 COMMENT ON COLUMN continuous_vehicle_classification.county IS
 'Name of the county where the station is located.';
 
-COMMENT ON COLUMN continuous_vehicle_classification."county fips" IS
+COMMENT ON COLUMN continuous_vehicle_classification.county_fips IS
 'The FIPS county code is a five-digit Federal Information Processing Standards (FIPS) code (FIPS 6-4) which uniquely identifies counties and county equivalents in the United States, certain U.S. possessions, and certain freely associated states.';
 
-COMMENT ON COLUMN continuous_vehicle_classification."begin desc" IS
+COMMENT ON COLUMN continuous_vehicle_classification.begin_desc IS
 'A description of the beginning of the roadway segment to which the station applies.';
 
-COMMENT ON COLUMN continuous_vehicle_classification."end desc" IS
+COMMENT ON COLUMN continuous_vehicle_classification.end_desc IS
 'A description of the ending of the roadway segment to which the station applies.';
 
-COMMENT ON COLUMN continuous_vehicle_classification."station id" IS
+COMMENT ON COLUMN continuous_vehicle_classification.station_id IS
 'A concatenation of the Region County and Station fields. Creates a Unique six character ID for each station statewide.';
 
 COMMENT ON COLUMN continuous_vehicle_classification.road IS
 'The direction of the data for each record. 99 represents data traveling from the Begin Desc to the End Desc, or primary direction. ‐99 represents data traveling from the End Desc to the Begin Desc, or non‐primary direction.';
 
-COMMENT ON COLUMN continuous_vehicle_classification."one-way" IS
+COMMENT ON COLUMN continuous_vehicle_classification.one_way IS
 'Indicates if the segment is a one‐way road. ‘Y’ for one‐way or null for bi‐directional.';
 
 COMMENT ON COLUMN continuous_vehicle_classification.year IS

@@ -1,0 +1,54 @@
+RC_STATION                    |  21_0001
+COUNT_ID                      |  210001_10192010
+RG                            |  02
+REGION_CODE                   |  2
+COUNTY_CODE                   |  1
+STAT                          |  0001
+RCSTA                         |  210001
+FUNCTIONAL_CLASS              |  8
+FACTOR_GROUP                  |  40
+LATITUDE                      |  
+LONGITUDE                     |  
+SPECIFIC_RECORDER_PLACEMENT   |  1.5 MI N OF CO LN
+CHANNEL_NOTES                 |  
+DATA_TYPE                     |  Volume Statistics
+VEHICLE_AXLE_CODE             |  1
+YEAR                          |  2010
+MONTH                         |  10
+DAY_OF_FIRST_DATA             |  19
+FEDERAL_DIRECTION             |  5
+FULL_COUNT                    |  
+AVG_WKDAY_INTERVAL_1          |  1
+AVG_WKDAY_INTERVAL_2          |  0
+AVG_WKDAY_INTERVAL_3          |  1
+AVG_WKDAY_INTERVAL_4          |  1
+AVG_WKDAY_INTERVAL_5          |  4
+AVG_WKDAY_INTERVAL_6          |  14
+AVG_WKDAY_INTERVAL_7          |  20
+AVG_WKDAY_INTERVAL_8          |  33
+AVG_WKDAY_INTERVAL_9          |  18
+AVG_WKDAY_INTERVAL_10         |  32
+AVG_WKDAY_INTERVAL_11         |  19
+AVG_WKDAY_INTERVAL_12         |  18
+AVG_WKDAY_INTERVAL_13         |  19
+AVG_WKDAY_INTERVAL_14         |  21
+AVG_WKDAY_INTERVAL_15         |  25
+AVG_WKDAY_INTERVAL_16         |  27
+AVG_WKDAY_INTERVAL_17         |  19
+AVG_WKDAY_INTERVAL_18         |  21
+AVG_WKDAY_INTERVAL_19         |  21
+AVG_WKDAY_INTERVAL_20         |  15
+AVG_WKDAY_INTERVAL_21         |  9
+AVG_WKDAY_INTERVAL_22         |  11
+AVG_WKDAY_INTERVAL_23         |  6
+AVG_WKDAY_INTERVAL_24         |  2
+AVG_WKDAY_DAILY_TRAFFIC       |  357
+SEASONAL_FACTOR               |  1.02
+AXLE_FACTOR                   |  1
+AADT                          |  350
+HIGH_HOUR_VALUE               |  44
+HIGH_HOUR_INTERVAL            |  17
+K_FACTOR                      |  
+D_FACTOR                      |  
+FLAG_FIELD                    |  
+BATCH_ID                      |  38635

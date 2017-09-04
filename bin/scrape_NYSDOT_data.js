@@ -8,7 +8,11 @@ const { join } = require('path');
 
 
 const { execSync } = require('child_process');
-const { existsSync } = require('fs');
+const {
+  existsSync,
+  readdirSync,
+} = require('fs');
+
 const { sync: mkdirpSync } = require('mkdirp');
 
 const VERSIONS = ['2010', '2011', '2012', '2013', '2014', '2015'];
@@ -64,9 +68,9 @@ VERSIONS.forEach((VERSION) => {
     const downloadDir = join(dataDir, `${tableName}`, VERSION);
 
     const url = `${shapefileURLBase}/${basename}`;
-    const filepath = join(downloadDir, basename);
+    const zipFilePath = join(downloadDir, basename);
 
-    if (existsSync(filepath)) {
+    if (existsSync(zipFilePath)) {
       console.log(`===== Skipping ${basename}. =====`);
     } else {
       try {
@@ -74,7 +78,7 @@ VERSIONS.forEach((VERSION) => {
 
         console.log(`Downloading ${basename}`);
 
-        execSync(`curl -k -o '${filepath}' '${url}'`);
+        execSync(`curl -k -o '${zipFilePath}' '${url}'`);
       } catch (err) {
         execSync(`rm -rf ${downloadDir}`);
       }
@@ -93,25 +97,50 @@ VERSIONS.forEach((VERSION) => {
 
       const basename = basenameTemplate.replace(regionTemplateRegExp, `R${region}`);
       const url = `${csvURLBase}/${basename}`;
-      const filepath = join(downloadDir, basename);
+      const zipFilePath = join(downloadDir, basename);
 
-      if (existsSync(filepath)) {
+      if (existsSync(zipFilePath)) {
         console.log(`===== Skipping ${basename}. =====`);
       } else {
         console.log(`Downloading ${basename}`);
 
         try {
-          execSync(`curl -k -o '${filepath}' '${url}'`);
+          execSync(`curl -k -o '${zipFilePath}' '${url}'`);
 
-          execSync(`unzip ${filepath}`, { cwd: downloadDir });
+          execSync(`unzip -o ${zipFilePath}`, { cwd: downloadDir });
 
-          execSync('sed -i \'s/ *, */,/g\' *.csv', { cwd: downloadDir });
+          // Get the name of the extracted CSV.
+          const csvFileName = readdirSync(downloadDir).filter(f => f.match(/csv$/i))[0];
 
-          execSync(`rm -f ${filepath}`, { cwd: downloadDir });
+          // Trim whitespace from the columns.
+          execSync(`sed -i 's/ *, */,/g' '${csvFileName}'`, { cwd: downloadDir });
 
-          execSync(`zip ${filepath} *.csv`, { cwd: downloadDir });
+          // Remove Windows line endings.
+          // https://stackoverflow.com/a/44318366/3970755
+          execSync(`sed -i 's/\r//' '${csvFileName}'`, { cwd: downloadDir });
 
-          execSync('rm -f *.csv', { cwd: downloadDir });
+          // Fix the columns here either side of an '/' are many whitespaces apart.
+          execSync(`sed -i 's# */ *# / #g' '${csvFileName}'`, { cwd: downloadDir });
+
+          // Some CSVs had a line with 'rows selected' in it.
+          execSync(`sed -i '/rows selected/d' '${csvFileName}'`, { cwd: downloadDir });
+
+          // Some CSVs had a line with ---,---,
+          //   So we delete rows that have no alpha-numeric characters
+          execSync(`sed -i '/[A-Za-Z0-9]/!d' '${csvFileName}'`, { cwd: downloadDir });
+
+          // Remove duplicate rows to fix the problem of 
+          //    the header showing up at the beginning and the end of a file.
+          // https://stackoverflow.com/a/20639730/3970755
+          execSync(`cat -n '${csvFileName}' | sort -uk2 | sort -nk1 | cut -f2- > no_dupes.csv`, { cwd: downloadDir });
+
+          execSync(`mv no_dupes.csv '${csvFileName}'`, { cwd: downloadDir });
+
+          execSync(`rm -f ${zipFilePath}`, { cwd: downloadDir });
+
+          execSync(`zip ${zipFilePath} '${csvFileName}'`, { cwd: downloadDir });
+
+          execSync(`rm -f '${csvFileName}'`, { cwd: downloadDir });
         } catch (err) {
           execSync(`rm -rf ${downloadDir}`);
         }

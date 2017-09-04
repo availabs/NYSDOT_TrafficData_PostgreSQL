@@ -1,54 +1,51 @@
 BEGIN;
 
--- TODO: Decide what to do with invalid column names.
-
 DROP TABLE IF EXISTS continuous_volume CASCADE;
 
 CREATE TABLE continuous_volume (
-    "rc"            VARCHAR(2),
-    "station"       VARCHAR(4),
-    "region"        nysdot_region REFERENCES nysdot_region_names(region),
-    "dotid"         VARCHAR,
-    "ccid"          VARCHAR(4),
-    "fc"            nysdot_functional_classification_code REFERENCES nysdot_functional_classification_code_descriptions(code),
-    "route"         VARCHAR,
-    "roadname"      VARCHAR,
-    "county"        VARCHAR,
-    "county fips"   VARCHAR(2),
-    "begin desc"    VARCHAR,
-    "end desc"      VARCHAR,
-    "station id"    VARCHAR(6),
-    "road"          nysdot_road_direction_code REFERENCES nysdot_road_direction_code_descriptions(code),
-    "one-way"       nysdot_one_way_road_flag REFERENCES nysdot_one_way_road_flag_descriptions(flag_value),
-    "year"          calendar_year,
-    "month"         calendar_month REFERENCES calendar_month_names(calendar_month),
-    "day"           day_of_month REFERENCES day_of_month_ordinals(day_of_month),
-    "dow"           day_of_week_code REFERENCES days_of_week(dow),
-    "hour"          hour_of_day REFERENCES hour_of_day_ranges(hour_of_day),
-    "i1"            INTEGER, 
-    "i2"            INTEGER, 
-    "i3"            INTEGER, 
-    "i4"            INTEGER, 
-    "i5"            INTEGER, 
-    "i6"            INTEGER, 
-    "i7"            INTEGER, 
-    "i8"            INTEGER, 
-    "i9"            INTEGER, 
-    "i10"           INTEGER, 
-    "i11"           INTEGER, 
-    "i12"           INTEGER, 
-    "i13"           INTEGER, 
-    "i14"           INTEGER, 
-    "i15"           INTEGER, 
-    "i16"           INTEGER, 
-    "i17"           INTEGER, 
-    "i18"           INTEGER, 
-    "i19"           INTEGER, 
-    "i20"           INTEGER, 
-    "i21"           INTEGER, 
-    "i22"           INTEGER, 
-    "i23"           INTEGER, 
-    "i24"           INTEGER
+    rc            VARCHAR(2),
+    station       VARCHAR(4),
+    region        nysdot_region REFERENCES nysdot_region_names(region),
+    dotid         VARCHAR,
+    ccid          VARCHAR(4),
+    fc            nysdot_functional_classification_code REFERENCES nysdot_functional_classification_code_descriptions(code),
+    route         VARCHAR,
+    roadname      VARCHAR,
+    county        VARCHAR,
+    county_fips   VARCHAR(3),
+    begin_desc    VARCHAR,
+    end_desc      VARCHAR,
+    station_id    VARCHAR(6),
+    road          nysdot_road_direction_code REFERENCES nysdot_road_direction_code_descriptions(code),
+    one_way       nysdot_one_way_road_flag REFERENCES nysdot_one_way_road_flag_descriptions(flag_value),
+    year          calendar_year,
+    month         calendar_month REFERENCES calendar_month_names(calendar_month),
+    day           day_of_month REFERENCES day_of_month_ordinals(day_of_month),
+    dow           day_of_week_code REFERENCES days_of_week(dow),
+    i1            INTEGER, 
+    i2            INTEGER, 
+    i3            INTEGER, 
+    i4            INTEGER, 
+    i5            INTEGER, 
+    i6            INTEGER, 
+    i7            INTEGER, 
+    i8            INTEGER, 
+    i9            INTEGER, 
+    i10           INTEGER, 
+    i11           INTEGER, 
+    i12           INTEGER, 
+    i13           INTEGER, 
+    i14           INTEGER, 
+    i15           INTEGER, 
+    i16           INTEGER, 
+    i17           INTEGER, 
+    i18           INTEGER, 
+    i19           INTEGER, 
+    i20           INTEGER, 
+    i21           INTEGER, 
+    i22           INTEGER, 
+    i23           INTEGER, 
+    i24           INTEGER
 );
 
 
@@ -85,22 +82,22 @@ COMMENT ON COLUMN continuous_volume.roadname IS
 COMMENT ON COLUMN continuous_volume.county IS
 'Name of the county where the station is located.';
 
-COMMENT ON COLUMN continuous_volume."county fips" IS
+COMMENT ON COLUMN continuous_volume.county_fips IS
 'The FIPS county code is a five-digit Federal Information Processing Standards (FIPS) code (FIPS 6-4) which uniquely identifies counties and county equivalents in the United States, certain U.S. possessions, and certain freely associated states.';
 
-COMMENT ON COLUMN continuous_volume."begin desc" IS
+COMMENT ON COLUMN continuous_volume.begin_desc IS
 'A description of the beginning of the roadway segment to which the station applies.';
 
-COMMENT ON COLUMN continuous_volume."end desc" IS
+COMMENT ON COLUMN continuous_volume.end_desc IS
 'A description of the ending of the roadway segment to which the station applies.';
 
-COMMENT ON COLUMN continuous_volume."station id" IS
+COMMENT ON COLUMN continuous_volume.station_id IS
 'A concatenation of the Region County and Station fields. Creates a Unique six character ID.';
 
 COMMENT ON COLUMN continuous_volume.road IS
 'The direction of the data.';
 
-COMMENT ON COLUMN continuous_volume."one-way" IS
+COMMENT ON COLUMN continuous_volume.one_way IS
 'Indicates if the segment is a one‐way road. ‘Y’.';
 
 COMMENT ON COLUMN continuous_volume.year IS
@@ -114,9 +111,6 @@ COMMENT ON COLUMN continuous_volume.day IS
 
 COMMENT ON COLUMN continuous_volume.dow IS
 'Day of Week. Where applicable, the day of week, expressed as 1‐7 with 1 being Sunday and 7 being Saturday.';
-
-COMMENT ON COLUMN continuous_volume.hour IS
-'Where applicable, the hour of the day in which the data was collected. Represented as 0‐23 where 0 is data from 12am‐1am and so on.';
 
 COMMENT ON COLUMN continuous_volume.i1 IS
 'Where applicable, the volume in interval 1 (00:00-01:00).';
