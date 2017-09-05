@@ -1,5 +1,9 @@
 # Documentation Sources
 
+* [Scraped data from here](https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/hdsb)
+
+* [Repository](https://www.dot.ny.gov/divisions/engineering/technical-services/hds-respository/)
+
 * [Field\_Definitions\_ShortCount\_Formats](https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/hdsb/repository/Field_Definitions_SC%20Formats.pdf)
 
 * [Field\_Definitions\_ContinuousCount\_Formats](https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/hdsb/repository/Field_Definitions_CC%20Formats.pdf)

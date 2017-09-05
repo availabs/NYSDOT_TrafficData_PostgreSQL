@@ -27,18 +27,6 @@ const urlBase = 'https://www.dot.ny.gov/divisions/engineering';
 
 
 VERSIONS.forEach((VERSION) => {
-  // https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/
-  const shapefileURLBase = `${urlBase}/applications/traffic-data-viewer/traffic-data-viewer-repository`;
-
-  const shapefileURLs = {
-    aadt_shp: `TDV_Shapefile_AADT_${VERSION}.zip`,
-
-    short_counts_shp: `TDV_Shapefile_Short_Counts_${VERSION}.zip`,
-
-    continuous_counts_shp: `TDV_Shapefile_Continuous_Counts_${VERSION}.zip`,
-  };
-
-
   // https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/hdsb
   const csvURLBase = `${urlBase}/technical-services/highway-data-services/hdsb/repository`;
 
@@ -59,31 +47,6 @@ VERSIONS.forEach((VERSION) => {
 
     average_weekday_speed: `SC_Speed_AVGWD_==REGION==_${VERSION}.zip`,
   };
-
-
-  Object.entries(shapefileURLs).forEach(([tableName, basename]) => {
-    console.log(tableName, basename);
-    const dataDir = join(dataDirRoot, 'shapefile');
-
-    const downloadDir = join(dataDir, `${tableName}`, VERSION);
-
-    const url = `${shapefileURLBase}/${basename}`;
-    const zipFilePath = join(downloadDir, basename);
-
-    if (existsSync(zipFilePath)) {
-      console.log(`===== Skipping ${basename}. =====`);
-    } else {
-      try {
-        mkdirpSync(downloadDir);
-
-        console.log(`Downloading ${basename}`);
-
-        execSync(`curl -k -o '${zipFilePath}' '${url}'`);
-      } catch (err) {
-        execSync(`rm -rf ${downloadDir}`);
-      }
-    }
-  });
 
 
   Object.entries(csvURLs).forEach(([tableName, basenameTemplate]) => {

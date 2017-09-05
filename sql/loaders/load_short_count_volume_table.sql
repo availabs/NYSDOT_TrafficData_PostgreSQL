@@ -162,3 +162,5 @@ ALTER TABLE __REGION__.short_count_volume___YEAR__
   ADD CONSTRAINT day_of_week_fk FOREIGN KEY (day_of_week) REFERENCES days_of_week(day_of_week),
   ADD CONSTRAINT federal_direction_fk FOREIGN KEY (federal_direction) REFERENCES fhwa_direction_of_travel_code_descriptions(code)
 ;
+
+COMMIT;

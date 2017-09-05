@@ -83,3 +83,5 @@ ALTER TABLE __REGION__.continuous_volume___YEAR__
   ADD CONSTRAINT day_fk FOREIGN KEY (day) REFERENCES day_of_month_ordinals(day_of_month),
   ADD CONSTRAINT dow_fk FOREIGN KEY (dow) REFERENCES days_of_week(dow)
 ;
+
+COMMIT;

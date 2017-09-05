@@ -197,7 +197,7 @@ Object.entries(getLoadCSVsInfo()).forEach(([table, yearsInfo]) => {
       const {
         csvPath,
       } = dataFilesInfo;
-console.log(csvPath)
+
       const loaderScript =
           yrTemplateLoaderScript
             .replace(/__REGION__/g, region)
@@ -208,7 +208,9 @@ console.log(csvPath)
       writeFileSync(tmpFilePath, loaderScript);
 
       try {
+        console.log(region, table, year);
         execSync(`PGOPTIONS='--client-min-messages=warning' psql -q -v ON_ERROR_STOP=1 -f '${tmpFilePath}'`, { env: process.env });
+        console.log('done');
       } catch (err) {
         console.error(err);
         execSync(`rm -f ${tmpFilePath}`);
