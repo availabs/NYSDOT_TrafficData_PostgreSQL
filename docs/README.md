@@ -34,4 +34,4 @@
 
 * [2007 TRAFFIC DATA REPORT FOR NEW YORK STATE](https://www.dot.ny.gov/divisions/engineering/technical-services/hds-respository/Traffic%20Data%20Report%202007.pdf)
 
-
+* [NYSDOT Region and County Codes](https://www.dot.ny.gov/divisions/engineering/technical-services/hds-respository/Traffic%20Data%20Report%202011%20Appendix%20D%20-%20NYSDOT%20Regions%20and%20County%20Codes.pdf)
