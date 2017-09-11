@@ -12,8 +12,8 @@ AS
       county_code,
       functional_class,
       factor_group,
-      MIN(min_date),
-      MAX(max_date)
+      MIN(min_date) AS min_date,
+      MAX(max_date) AS max_date
     FROM station_metadata
     WHERE table_name LIKE 'short_count%'
     GROUP BY
