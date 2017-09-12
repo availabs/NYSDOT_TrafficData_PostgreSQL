@@ -190,7 +190,7 @@ let createSchemaOnce = async () => {
           }
         } catch (err) { // If above failed, retry with PROMOTE_TO_MULTI
           console.log(`${cmd} -nlt PROMOTE_TO_MULTI -lco PRECISION=NO`);
-          const { stderr } = await execAsync(`${cmd} -nlt PROMOTE_TO_MULTI -lco PRECISION=NO`, { env: process.env });
+          const { stderr } = await execAsync(`${cmd} -nlt PROMOTE_TO_MULTI -lco PRECISION=NO  --config SHAPE_RESTORE_SHX true`, { env: process.env });
 
           if (stderr) {
             throw stderr;
