@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-
 /* eslint no-console: 0 */
-
 
 const { join } = require('path');
 
@@ -14,7 +12,8 @@ const VERSION = '2014';
 
 const dataDirRoot = join(__dirname, '../data/inventory/');
 
-const urlBase = 'https://www.dot.ny.gov/divisions/engineering/technical-services/hds-respository/';
+const urlBase =
+  'https://www.dot.ny.gov/divisions/engineering/technical-services/hds-respository/';
 
 const countyURLs = {
   Albany: 'HighwayInventory-AlbanyCounty-2014.zip',
@@ -78,9 +77,8 @@ const countyURLs = {
   Wayne: 'HighwayInventory-WayneCounty-2014.zip',
   Westchester: 'HighwayInventory-WestchesterCounty-2014.zip',
   Wyoming: 'HighwayInventory-WyomingCounty-2014.zip',
-  Yates: 'HighwayInventory-YatesCounty-2014.zip',
+  Yates: 'HighwayInventory-YatesCounty-2014.zip'
 };
-
 
 Object.entries(countyURLs).forEach(([county, basename]) => {
   const downloadDir = join(dataDirRoot, county, VERSION);
@@ -98,4 +96,3 @@ Object.entries(countyURLs).forEach(([county, basename]) => {
     execSync(`rm -rf ${downloadDir}`);
   }
 });
-

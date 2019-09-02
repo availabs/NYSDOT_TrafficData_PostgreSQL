@@ -6,9 +6,7 @@ const { promisify } = require('util');
 
 const { exec } = require('child_process');
 
-const {
-  readdirSync,
-} = require('fs');
+const { readdirSync } = require('fs');
 
 const { join } = require('path');
 
@@ -21,10 +19,11 @@ const minimistOptions = {
   boolean: true,
 
   // an object mapping string names to strings or arrays of string argument names to use as aliases
-  alias: { //
+  alias: {
+    //
     tables: 'table',
-    years: 'year',
-  },
+    years: 'year'
+  }
 };
 
 const cliArgs = require('minimist')(process.argv.slice(2), minimistOptions);
@@ -32,43 +31,42 @@ const cliArgs = require('minimist')(process.argv.slice(2), minimistOptions);
 const {
   pgEnvPath = join(__dirname, '../config/postgres_db.env'),
   dataDir = join(__dirname, '../data/'),
-  cleanup, // Delete the extracted Shapefiles and leave only the ZIPs when done.
+  cleanup // Delete the extracted Shapefiles and leave only the ZIPs when done.
 } = cliArgs;
 
 require('dotenv').config({ path: pgEnvPath });
 
-const {
-  PGHOSTADDR,
-  PGPORT,
-  PGUSER,
-  PGDATABASE,
-  PGPASSWORD,
-} = process.env;
+const { PGHOSTADDR, PGPORT, PGUSER, PGDATABASE, PGPASSWORD } = process.env;
 
 const pgConnectStr = `PG:host=${PGHOSTADDR} port=${PGPORT} user=${PGUSER} dbname=${PGDATABASE} password=${PGPASSWORD}`;
 
+let { tables: requestedTables, years: requestedYears } = cliArgs;
 
-let {
-  tables: requestedTables,
-  years: requestedYears,
-} = cliArgs;
-
-requestedTables = requestedTables && requestedTables.toString().split(',').map(s => s && s.trim()).filter(s => s);
-requestedYears = requestedYears && requestedYears.toString().split(',').map(s => s && s.trim()).filter(s => +s);
-
+requestedTables =
+  requestedTables &&
+  requestedTables
+    .toString()
+    .split(',')
+    .map(s => s && s.trim())
+    .filter(s => s);
+requestedYears =
+  requestedYears &&
+  requestedYears
+    .toString()
+    .split(',')
+    .map(s => s && s.trim())
+    .filter(s => +s);
 
 async function cleanDir(dir) {
   if (cleanup) {
-    const toDelete =
-        readdirSync(dir)
-          .filter(f => !f.match(/zip$/i))
-          .map(f => `'${join(dir, f)}'`)
-          .join(' ');
+    const toDelete = readdirSync(dir)
+      .filter(f => !f.match(/zip$/i))
+      .map(f => `'${join(dir, f)}'`)
+      .join(' ');
 
     await execAsync(`rm -f ${toDelete}`);
   }
 }
-
 
 function getLoadInfo() {
   const shpDir = join(dataDir, 'shapefile');
@@ -80,7 +78,9 @@ function getLoadInfo() {
     : [];
 
   if (invalidTableRequests.length) {
-    console.error(`The following requested tables are invalid: ${invalidTableRequests}`);
+    console.error(
+      `The following requested tables are invalid: ${invalidTableRequests}`
+    );
     process.exit(1);
   }
 
@@ -96,7 +96,9 @@ function getLoadInfo() {
       : [];
 
     if (invalidYearRequests.length) {
-      console.error(`${table} has no data for the following requested years: ${invalidYearRequests}`);
+      console.error(
+        `${table} has no data for the following requested years: ${invalidYearRequests}`
+      );
       process.exit(1);
     }
 
@@ -119,7 +121,9 @@ function getLoadInfo() {
 
       if (!shpFiles.length) {
         if (!zipPath) {
-          console.error(`No data found in ${yearDir}. Remove empty dirs, if necessary.`);
+          console.error(
+            `No data found in ${yearDir}. Remove empty dirs, if necessary.`
+          );
           process.exit(1);
         }
         execAsync(`unzip ${join(yearDir, zipPath)}`, { cwd: yearDir });
@@ -145,10 +149,11 @@ function getLoadInfo() {
 }
 
 let createSchemaOnce = async () => {
-  await execAsync(`psql -c 'CREATE SCHEMA IF NOT EXISTS ${SCHEMA};'`, { env: process.env });
+  await execAsync(`psql -c 'CREATE SCHEMA IF NOT EXISTS ${SCHEMA};'`, {
+    env: process.env
+  });
   createSchemaOnce = async () => {};
 };
-
 
 (async () => {
   const loadInfo = getLoadInfo();
@@ -181,28 +186,34 @@ let createSchemaOnce = async () => {
       `;
 
       try {
-        try { // First try without PROMOTE_TO_MULTI
-          console.log(cmd);
-          const { stderr } = await execAsync(cmd, { env: process.env });
+        // First try without PROMOTE_TO_MULTI
+        console.log(cmd);
+        const { stderr } = await execAsync(cmd, { env: process.env });
 
-          if (stderr) {
-            throw stderr;
-          }
-        } catch (err) { // If above failed, retry with PROMOTE_TO_MULTI
-          console.log(`${cmd} -nlt PROMOTE_TO_MULTI -lco PRECISION=NO`);
-          const { stderr } = await execAsync(`${cmd} -nlt PROMOTE_TO_MULTI -lco PRECISION=NO  --config SHAPE_RESTORE_SHX true`, { env: process.env });
-
-          if (stderr) {
-            throw stderr;
-          }
+        if (stderr) {
+          throw stderr;
         }
       } catch (err) {
-        throw err;
+        // If above failed, retry with PROMOTE_TO_MULTI
+        console.log(`${cmd} -nlt PROMOTE_TO_MULTI -lco PRECISION=NO`);
+        const { stderr } = await execAsync(
+          `${cmd} -nlt PROMOTE_TO_MULTI -lco PRECISION=NO  --config SHAPE_RESTORE_SHX true`,
+          { env: process.env }
+        );
+
+        if (stderr) {
+          throw stderr;
+        }
       }
 
       if (!createdParentTable) {
-        console.log(`psql -c 'CREATE TABLE IF NOT EXISTS public.${table} (LIKE ${SCHEMA}.${versionTableName});'`);
-        await execAsync(`psql -c 'CREATE TABLE IF NOT EXISTS public.${table} (LIKE ${SCHEMA}.${versionTableName});'`, { env: process.env });
+        console.log(
+          `psql -c 'CREATE TABLE IF NOT EXISTS public.${table} (LIKE ${SCHEMA}.${versionTableName});'`
+        );
+        await execAsync(
+          `psql -c 'CREATE TABLE IF NOT EXISTS public.${table} (LIKE ${SCHEMA}.${versionTableName});'`,
+          { env: process.env }
+        );
         createdParentTable = true;
       }
 
@@ -227,4 +238,3 @@ let createSchemaOnce = async () => {
     }
   }
 })();
-

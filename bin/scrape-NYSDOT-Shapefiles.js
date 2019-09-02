@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-
 /* eslint no-console: 0 */
-
 
 const { join } = require('path');
 
@@ -16,7 +14,6 @@ const dataDirRoot = join(__dirname, '../data/shapefile/');
 
 const urlBase = 'https://www.dot.ny.gov/divisions/engineering';
 
-
 // https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/
 const shapefileURLBase = `${urlBase}/applications/traffic-data-viewer/traffic-data-viewer-repository`;
 
@@ -25,9 +22,8 @@ const shapefileURLs = {
 
   short_counts_shp: `TDV_Shapefile_Short_Counts_${VERSION}.zip`,
 
-  continuous_counts_shp: `TDV_Shapefile_Continuous_Counts_${VERSION}.zip`,
+  continuous_counts_shp: `TDV_Shapefile_Continuous_Counts_${VERSION}.zip`
 };
-
 
 Object.entries(shapefileURLs).forEach(([tableName, basename]) => {
   console.log(tableName, basename);
