@@ -8,7 +8,7 @@ const { execSync } = require('child_process');
 
 const { sync: mkdirpSync } = require('mkdirp');
 
-const VERSION = '2015';
+const VERSION = '2016';
 
 const dataDirRoot = join(__dirname, '../data/shapefile/');
 

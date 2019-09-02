@@ -11,11 +11,21 @@ const { existsSync, readdirSync } = require('fs');
 
 const { sync: mkdirpSync } = require('mkdirp');
 
-const VERSIONS = ['2010', '2011', '2012', '2013', '2014', '2015'];
+const VERSIONS = [
+  '2010',
+  '2011',
+  '2012',
+  '2013',
+  '2014',
+  '2015',
+  '2016',
+  '2017'
+];
 
 const regionTemplateRegExp = /==REGION==/;
 
 const dataDirRoot = join(__dirname, '../data/');
+const dataDir = join(dataDirRoot, 'csv');
 
 const regions = [
   '01',
@@ -56,8 +66,6 @@ VERSIONS.forEach(VERSION => {
   };
 
   Object.entries(csvURLs).forEach(([tableName, basenameTemplate]) => {
-    const dataDir = join(dataDirRoot, 'csv');
-
     for (let i = 0; i < regions.length; i += 1) {
       const region = basenameTemplate.match(/^CC_/) ? +regions[i] : regions[i];
 
