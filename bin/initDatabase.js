@@ -1,27 +1,23 @@
 #!/usr/bin/env node
 
+const { execSync } = require('child_process');
+const { readFileSync } = require('fs');
 const { join } = require('path');
 
-const { execSync } = require('child_process');
-
-const { readFileSync } = require('fs');
-
 const pgEnvPath = join(__dirname, '../config/postgres_db.env');
-
 require('dotenv').config({ path: pgEnvPath });
 
-execSync(`dropdb --echo --if-exists ${process.env.PGDATABASE}`, {
-  env: process.env
-});
+const { env } = process;
+const { PGUSER, PGDATABASE } = env;
 
 execSync(
-  `createdb --echo --owner=${process.env.PGUSER} ${process.env.PGDATABASE} 'NYSDOT Traffic Counts'`,
-  { env: process.env }
+  `createdb --echo --owner=${PGUSER} ${PGDATABASE} 'NYSDOT Traffic Counts'`
 );
 
 const createPostgisPath = join(__dirname, '../sql/init/postgis.sql');
+
 const sql = readFileSync(createPostgisPath)
   .toString()
-  .replace(/__PGDATABASE__/, process.env.PGDATABASE);
+  .replace(/__PGDATABASE__/, PGDATABASE);
 
-execSync(`psql -c '${sql}'`, { env: process.env });
+execSync(`psql -c '${sql}'`);

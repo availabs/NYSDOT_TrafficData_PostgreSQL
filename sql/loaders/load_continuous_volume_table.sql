@@ -23,52 +23,7 @@ CREATE TABLE __REGION__.continuous_volume___YEAR__ (
 ) WITH (fillfactor=100, autovacuum_enabled=false);
 
 
-COPY __REGION__.continuous_volume___YEAR__ (
-    rc,
-    station,
-    region,
-    dotid,
-    ccid,
-    fc,
-    route,
-    roadname,
-    county,
-    county_fips,
-    begin_desc,
-    end_desc,
-    station_id,
-    road,
-    one_way,
-    year,
-    month,
-    day,
-    dow,
-    i1,
-    i2,
-    i3,
-    i4,
-    i5,
-    i6,
-    i7,
-    i8,
-    i9,
-    i10,
-    i11,
-    i12,
-    i13,
-    i14,
-    i15,
-    i16,
-    i17,
-    i18,
-    i19,
-    i20,
-    i21,
-    i22,
-    i23,
-    i24
-) FROM '__CSV_PATH__'
-  WITH DELIMITER ',' CSV HEADER FREEZE;
+\copy __REGION__.continuous_volume___YEAR__ ( rc, station, region, dotid, ccid, fc, route, roadname, county, county_fips, begin_desc, end_desc, station_id, road, one_way, year, month, day, dow, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24) FROM '__CSV_PATH__' WITH DELIMITER ',' CSV HEADER FREEZE;
 
 ALTER TABLE __REGION__.continuous_volume___YEAR__
   OWNER TO "__PGUSER__",

@@ -18,7 +18,6 @@ const minimistOptions = {
 
   // an object mapping string names to strings or arrays of string argument names to use as aliases
   alias: {
-    //
     tables: 'table',
     years: 'year',
     regions: 'region'
@@ -35,31 +34,28 @@ const {
 
 require('dotenv').config({ path: pgEnvPath });
 
-let {
-  tables: requestedTables,
-  years: requestedYears,
-  regions: requestedRegions
-} = cliArgs;
+const { tables, years, regions } = cliArgs;
 
-requestedTables =
-  requestedTables &&
-  requestedTables
+const requestedTables =
+  tables &&
+  tables
     .toString()
     .split(',')
     .map(s => s && s.trim())
     .filter(s => s);
-requestedYears =
-  requestedYears &&
-  requestedYears
+
+const requestedYears =
+  years &&
+  years
     .toString()
     .split(',')
     .map(s => s && s.trim())
     .filter(s => +s);
 
 // Convert requested regions to R01-R11 format.
-requestedRegions =
-  requestedRegions &&
-  requestedRegions
+const requestedRegions =
+  regions &&
+  regions
     .toString()
     .split(',')
     .map(s => s && s.trim())
@@ -75,7 +71,7 @@ const csvLoaders = readdirSync(csvLoadersDir)
     return acc;
   }, {});
 
-function cleanDir(dir) {
+function removeUnzippedCSVFiles(dir) {
   if (cleanup) {
     const toDelete = readdirSync(dir)
       .filter(f => !f.match(/zip$/i))
@@ -86,13 +82,20 @@ function cleanDir(dir) {
   }
 }
 
+// FIXME: This function needs to be decomposed. A lot going on in here:
+//   NOTE: It causes the loader process to exit with an error if:
+//           a) the requested tables are not valid
+//           b) the requested years are not valid
+//           c) the requested years are not valid
 function getLoadCSVsInfo() {
   const csvDir = join(dataDir, 'csv');
 
-  const csvTables = new Set(readdirSync(csvDir));
+  // Validate requested table names.
+  // FIXME: The CSV directory sub-directory names are being used as ENUMs.
+  const csvTables = readdirSync(csvDir);
 
   const invalidTableRequests = requestedTables
-    ? [...requestedTables].filter(x => !csvTables.has(x))
+    ? requestedTables.filter(x => !csvTables.includes(x))
     : [];
 
   if (invalidTableRequests.length) {
@@ -102,15 +105,24 @@ function getLoadCSVsInfo() {
     process.exit(1);
   }
 
-  const tables = requestedTables || [...csvTables];
+  // tablesToLoad are either the specified or all csvTables
+  const tablesToLoad = requestedTables || csvTables;
 
-  return tables.reduce((acc1, table) => {
+  // FIXME: Massive reduce function that needs to be decomposed.
+  //  The returned object:
+  //    * keys are region id
+  //    * values are csvPaths to the unzipped CSVs
+  //  NOTE: In this reduce function, ZIP archives are getting unzipped.
+  //  NOTE: This reduce function validates process input and will cause the process to exit if
+  //          a) any CLI config variables are invalid.
+  //          b) any input data invariants are broken.
+  return tablesToLoad.reduce((acc1, table) => {
     const tableDir = join(csvDir, table);
 
-    const csvYears = new Set(readdirSync(tableDir));
+    const csvYears = readdirSync(tableDir);
 
     const invalidYearRequests = requestedYears
-      ? [...requestedYears].filter(x => !csvYears.has(x))
+      ? requestedYears.filter(x => !csvYears.includes(x))
       : [];
 
     if (invalidYearRequests.length) {
@@ -120,9 +132,10 @@ function getLoadCSVsInfo() {
       process.exit(1);
     }
 
-    const years = requestedYears || [...csvYears];
+    const yearsToLoad = requestedYears || csvYears;
+    console.log(yearsToLoad)
 
-    acc1[table] = years.reduce((acc2, year) => {
+    acc1[table] = yearsToLoad.reduce((acc2, year) => {
       const yearDir = join(tableDir, year);
 
       const csvRegions = new Set(readdirSync(yearDir));
@@ -138,9 +151,9 @@ function getLoadCSVsInfo() {
         process.exit(1);
       }
 
-      const regions = requestedRegions || [...csvRegions];
+      const regionsToLoad = requestedRegions || [...csvRegions];
 
-      acc2[year] = regions.reduce((acc3, region) => {
+      acc2[year] = regionsToLoad.reduce((acc3, region) => {
         const regionDir = join(yearDir, region);
 
         const dataFiles = readdirSync(regionDir);
@@ -148,25 +161,35 @@ function getLoadCSVsInfo() {
         let csvFiles = dataFiles.filter(f => f.match(/\.csv$/i));
         const zipFiles = dataFiles.filter(f => f.match(/\.zip$/i));
 
+        // INVARIANT: There is at most one zip file in the regionDir
         if (zipFiles.length > 1) {
           console.error(`More than one ZIP file found in ${regionDir}`);
           process.exit(1);
         }
 
+        // If there is a zipFile, get its path.
         const zipPath = zipFiles.length ? zipFiles[0] : null;
 
+        // If we don't have an unzipped CSV in this directory,
+        //   unzip the (single) archive file to get (a single) unzipped CSV.
         if (!csvFiles.length) {
           if (!zipPath) {
+            // NO data at all in the region's directory.
             console.error(
-              `No data found in ${regionDir}. Remove enpty dirs, if necessary.`
+              `No data found in ${regionDir}. Remove empty dirs, if necessary.`
             );
+
             process.exit(1);
           }
+
+          // Extract the (single) CSV from the ZIP archive.
           execSync(`unzip ${join(regionDir, zipPath)}`, { cwd: regionDir });
 
+          // MUTATION: Update the csvFiles variable
           csvFiles = readdirSync(regionDir).filter(f => f.match(/\.csv$/i));
         }
 
+        // EXIT With Error if number of csvFiles in the ZIP is not exactly 1.
         if (csvFiles.length !== 1) {
           if (csvFiles.length === 0) {
             console.error(`No CSV file found in ${regionDir}`);
@@ -174,7 +197,8 @@ function getLoadCSVsInfo() {
             console.error(`More than one CSV file found in ${regionDir}`);
           }
 
-          cleanDir(regionDir);
+          // cleanup the unzipped CSV files
+          removeUnzippedCSVFiles(regionDir);
 
           process.exit(1);
         }
@@ -189,7 +213,9 @@ function getLoadCSVsInfo() {
   }, {});
 }
 
-Object.entries(getLoadCSVsInfo()).forEach(([table, yearsInfo]) => {
+const loadCSVsInfo = getLoadCSVsInfo();
+
+Object.entries(loadCSVsInfo).forEach(([table, yearsInfo]) => {
   const templateLoaderScriptPath = csvLoaders[table];
 
   if (!templateLoaderScriptPath) {
@@ -234,9 +260,9 @@ Object.entries(getLoadCSVsInfo()).forEach(([table, yearsInfo]) => {
         console.error(err);
         execSync(`rm -f ${tmpFilePath}`);
         process.exit(1);
+      } finally {
+        execSync(`rm -f ${tmpFilePath}`);
       }
-
-      execSync(`rm -f ${tmpFilePath}`);
     });
   });
 });

@@ -23,54 +23,7 @@ CREATE TABLE __REGION__.average_weekday_speed___YEAR__ (
 ) WITH (fillfactor=100, autovacuum_enabled=false);
 
 
-COPY __REGION__.average_weekday_speed___YEAR__ (
-  rc_station,
-  count_id,
-  rg,
-  region_code,
-  county_code,
-  stat,
-  rcsta,
-  functional_class,
-  factor_group,
-  latitude,
-  longitude,
-  specific_recorder_placement,
-  channel_notes,
-  data_type,
-  speed_limit,
-  year,
-  month,
-  day_of_first_data,
-  federal_direction,
-  full_count,
-  avg_wkday_bin_1,
-  avg_wkday_bin_2,
-  avg_wkday_bin_3,
-  avg_wkday_bin_4,
-  avg_wkday_bin_5,
-  avg_wkday_bin_6,
-  avg_wkday_bin_7,
-  avg_wkday_bin_8,
-  avg_wkday_bin_9,
-  avg_wkday_bin_10,
-  avg_wkday_bin_11,
-  avg_wkday_bin_12,
-  avg_wkday_bin_13,
-  avg_wkday_bin_14,
-  avg_wkday_bin_15,
-  avg_wkday_unclassified,
-  avg_wkday_totals,
-  avg_speed,
-  fiftyth_percentile_speed,
-  eightyfiveth_percentile_speed,
-  percentile_exceeding_55,
-  percentile_exceeding_65,
-  flag_field,
-  batch_id
-) FROM '__CSV_PATH__'
-  WITH DELIMITER ',' CSV HEADER FREEZE;
-
+\copy __REGION__.average_weekday_speed___YEAR__ ( rc_station, count_id, rg, region_code, county_code, stat, rcsta, functional_class, factor_group, latitude, longitude, specific_recorder_placement, channel_notes, data_type, speed_limit, year, month, day_of_first_data, federal_direction, full_count, avg_wkday_bin_1, avg_wkday_bin_2, avg_wkday_bin_3, avg_wkday_bin_4, avg_wkday_bin_5, avg_wkday_bin_6, avg_wkday_bin_7, avg_wkday_bin_8, avg_wkday_bin_9, avg_wkday_bin_10, avg_wkday_bin_11, avg_wkday_bin_12, avg_wkday_bin_13, avg_wkday_bin_14, avg_wkday_bin_15, avg_wkday_unclassified, avg_wkday_totals, avg_speed, fiftyth_percentile_speed, eightyfiveth_percentile_speed, percentile_exceeding_55, percentile_exceeding_65, flag_field, batch_id) FROM '__CSV_PATH__' WITH DELIMITER ',' CSV HEADER FREEZE; 
 
 ALTER TABLE __REGION__.average_weekday_speed___YEAR__
   OWNER TO "__PGUSER__",

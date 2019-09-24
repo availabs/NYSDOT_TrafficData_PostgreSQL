@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+set -a
+
+pushd "$( dirname "${BASH_SOURCE[0]}")" >/dev/null
+
+. .env
+
+docker-compose up counts_db
+
+popd >/dev/null

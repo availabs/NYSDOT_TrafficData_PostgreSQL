@@ -15,7 +15,6 @@ WITH (fillfactor=100, autovacuum_enabled=false);
 ALTER TABLE __REGION__.continuous_vehicle_classification
   OWNER TO __PGUSER__;
 
-
 DROP TABLE IF EXISTS __REGION__.continuous_vehicle_classification___YEAR__;
 
 CREATE TABLE __REGION__.continuous_vehicle_classification___YEAR__ (
@@ -23,42 +22,7 @@ CREATE TABLE __REGION__.continuous_vehicle_classification___YEAR__ (
 ) WITH (fillfactor=100, autovacuum_enabled=false);
 
 
-COPY __REGION__.continuous_vehicle_classification___YEAR__ (
-    rc,
-    station,
-    region,
-    dotid,
-    ccid,
-    fc,
-    route,
-    roadname,
-    county,
-    county_fips,
-    begin_desc,
-    end_desc,
-    station_id,
-    road,
-    one_way,
-    year,
-    month,
-    day,
-    dow,
-    hour,
-    f1,
-    f2,
-    f3,
-    f4,
-    f5,
-    f6,
-    f7,
-    f8,
-    f9,
-    f10,
-    f11,
-    f12,
-    f13
-) FROM '__CSV_PATH__'
-  WITH DELIMITER ',' CSV HEADER FREEZE;
+\copy __REGION__.continuous_vehicle_classification___YEAR__ ( rc, station, region, dotid, ccid, fc, route, roadname, county, county_fips, begin_desc, end_desc, station_id, road, one_way, year, month, day, dow, hour, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13) FROM '__CSV_PATH__' WITH DELIMITER ',' CSV HEADER FREEZE;
 
 ALTER TABLE __REGION__.continuous_vehicle_classification___YEAR__
   OWNER TO "__PGUSER__",

@@ -23,50 +23,7 @@ CREATE TABLE __REGION__.short_count_vehicle_classification___YEAR__ (
 ) WITH (fillfactor=100, autovacuum_enabled=false);
 
 
-COPY __REGION__.short_count_vehicle_classification___YEAR__ (
-    rc_station,
-    count_id,
-    rg,
-    region_code,
-    county_code,
-    stat,
-    rcsta,
-    functional_class,
-    factor_group,
-    latitude,
-    longitude,
-    specific_recorder_placement,
-    channel_notes,
-    data_type,
-    blank,
-    year,
-    month,
-    day,
-    day_of_week,
-    federal_direction,
-	  lane_code,
-	  lanes_in_direction,
-	  collection_interval,
-	  data_interval,
-	  class_f1,
-	  class_f2,
-	  class_f3,
-	  class_f4,
-	  class_f5,
-	  class_f6,
-	  class_f7,
-	  class_f8,
-	  class_f9,
-	  class_f10,
-	  class_f11,
-	  class_f12,
-	  class_f13,
-	  unclassified,
-	  total,
-    flag_field,
-    batch_id
-) FROM '__CSV_PATH__'
-  WITH DELIMITER ',' CSV HEADER FREEZE;
+\copy __REGION__.short_count_vehicle_classification___YEAR__ ( rc_station, count_id, rg, region_code, county_code, stat, rcsta, functional_class, factor_group, latitude, longitude, specific_recorder_placement, channel_notes, data_type, blank, year, month, day, day_of_week, federal_direction, lane_code, lanes_in_direction, collection_interval, data_interval, class_f1, class_f2, class_f3, class_f4, class_f5, class_f6, class_f7, class_f8, class_f9, class_f10, class_f11, class_f12, class_f13, unclassified, total, flag_field, batch_id) FROM '__CSV_PATH__' WITH DELIMITER ',' CSV HEADER FREEZE;
 
 ALTER TABLE __REGION__.short_count_vehicle_classification___YEAR__
   OWNER TO "__PGUSER__",
