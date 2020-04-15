@@ -1,3 +1,7 @@
+# THIS PROJECT IS DEPRECATED. CODE MOVED TO NPMRDS_DATABASE REPO.
+
+
+
 # NYSDOT_TrafficData_PostgreSQL
 
 ## Scraping the data
